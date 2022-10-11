@@ -1,7 +1,6 @@
 import boomerang.ForwardQuery;
 import boomerang.Query;
 import boomerang.QueryGraph;
-import boomerang.guided.DemandDrivenGuidedAnalysis;
 import boomerang.scene.*;
 import boomerang.scene.jimple.BoomerangPretransformer;
 import boomerang.scene.jimple.SootCallGraph;
@@ -21,14 +20,16 @@ import java.util.stream.Collectors;
 public class Analysis {
 
     public void run() throws Exception {
-        String appClassPath = "C:\\Files\\Java_project\\Hello\\out\\production\\Hello";
+        String appClassPath = ".\\DemoTests\\target\\classes";
         String classPath = Util.getCombinedSootClassPath(OS.WINDOWS, appClassPath, "");
-//        Util.initializeSootWithEntryPoints(classPath, getEntryPoints());
         Util.initializeSootWithEntryPoints(classPath,getEntryPoints(appClassPath));
-        System.out.println("class_num: "+ Scene.v().getClassNumberer().size());
-        for (SootMethod m : Scene.v().getEntryPoints()){
-            System.out.println("entry_point_method_name:" + m.getName());
-        }
+//        System.out.println("class_num: "+ Scene.v().getClassNumberer().size());
+//        for (SootMethod m : Scene.v().getEntryPoints()){
+//            System.out.println("method: " + m);
+//            Body jimpleBody = m.retrieveActiveBody();
+//            System.out.println("-------------------------------"+m.getName()+"-------------------------------");
+//            System.out.println(jimpleBody.toString());
+//        }
 
         Transform transform = new Transform("wjtp.ifds", this.createAnalysisTransformer());
         PackManager.v().getPack("wjtp").add(transform);
@@ -43,14 +44,14 @@ public class Analysis {
             protected void internalTransform(
                     String phaseName, @SuppressWarnings("rawtypes") Map options) {
                 SootCallGraph sootCallGraph = new SootCallGraph();
-                System.out.println("callgraph.size: "+sootCallGraph.size());
-                System.out.println("soot_callgraph: "+ Scene.v().getCallGraph().size());
+//                System.out.println("callgraph.size: "+sootCallGraph.size());
+//                System.out.println("soot_callgraph: "+ Scene.v().getCallGraph().size());
                 AnalysisScope scope =
                         new AnalysisScope(sootCallGraph) {
                             @Override
                             protected Collection<? extends Query> generate(ControlFlowGraph.Edge cfgEdge) {
                                 Statement statement = cfgEdge.getStart();
-                                if (statement.toString().contains("input")){
+                                if (statement.toString().contains("secret")){
                                     return Collections.singleton(
                                             new ForwardQuery(
                                                     cfgEdge,
@@ -71,22 +72,23 @@ public class Analysis {
 
                     //写一个specification,options前向分析,需要搞定一个customDataFlowScope
                     //source从要分析的代码中指定
-                    DemandDrivenGuidedAnalysis demandDrivenGuidedAnalysis = new DemandDrivenGuidedAnalysis(
+                    DemandDrivenGuidedAnalysis_n demandDrivenGuidedAnalysis = new DemandDrivenGuidedAnalysis_n(
                             simpleSpecificationGuide,
                             simpleBoomerangOptions,
                             SootDataFlowScope.make(Scene.v()));
 
-                    QueryGraph<Weight.NoWeight> queryGraph = demandDrivenGuidedAnalysis.run(source);
-                    Iterator it = queryGraph.getNodes().iterator();
-                    while (it.hasNext()){
-                        Query query = (Query) it.next();
-                        System.out.println(query.toString());
-//                        if (queryGraph.isRoot(query)){
-//                            System.out.println("source: " + query.toString());
-//                        }else {
-//                            System.out.println(query.toString());
-//                        }
+                    Set<Statement> result = new HashSet();
+                    QueryGraph<Weight.NoWeight> queryGraph = demandDrivenGuidedAnalysis.run(source,result);
+//                    Iterator it = queryGraph.getNodes().iterator();
+//                    while (it.hasNext()){
+//                        Query query = (Query) it.next();
+//                        System.out.println(query.toString());
+//                    }
+                    Iterator it_set = result.iterator();
+                    while (it_set.hasNext()){
+                        System.out.println("stmt: " + it_set.next().toString());
                     }
+
                 }
             }
         };
@@ -95,7 +97,7 @@ public class Analysis {
     private List<EntryPoint> getEntryPoints(String classPath) {
 
         List<EntryPoint> entryPoints = new ArrayList<EntryPoint>();
-        List<String> typeNames = Arrays.asList("Hello");
+        List<String> typeNames = Arrays.asList("taint.analysis.taintAnalysis");
 
 //        List<String> typeNames = Arrays.asList();
 //        try {
@@ -107,7 +109,7 @@ public class Analysis {
 //                    .map(a -> a.replace(classPath, "").replace(File.separator, ".").replaceAll("^\\.", "").replaceAll("\\.class$", ""))
 //                    .collect(Collectors.toList());
 //            typeNames = classes;
-//        } catch (IOException e) {
+//        } catch ( IOException e) {
 //            System.err.println("Something went wrong.\n" + e.getMessage());
 //            System.exit(-1);
 //        }
@@ -118,8 +120,7 @@ public class Analysis {
             entryPoint.setAllMethods(true);
             entryPoints.add(entryPoint);
         }
-        System.out.println("entryPoints: " + entryPoints);
-
+//        System.out.println("entryPoints: " + entryPoints);
         return entryPoints;
     }
 

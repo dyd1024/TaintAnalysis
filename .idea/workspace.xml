@@ -1,19 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="852288f8-0c26-41ee-a1c1-27f78993d749" name="Changes" comment="" />
+    <list default="true" id="ef6b8931-9c77-475b-8b3d-62645d37ad71" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Analysis/Analysis.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Analysis/Analysis.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analysis/src/main/java/Analysis.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analysis/src/main/java/Analysis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analysis/src/main/java/SimpleSpecificationGuide.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analysis/src/main/java/SimpleSpecificationGuide.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analysis/src/main/java/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analysis/src/main/java/Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Propagators/Propagators.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Propagators/Propagators.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Propagators/src/main/java/GeneralPropagators/UserdefinePropagators.java" beforeDir="false" afterPath="$PROJECT_DIR$/Propagators/src/main/java/GeneralPropagators/UserdefinePropagators.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
-  <component name="ProjectId" id="2FnTeO6MfSnxa2XH5MmQSd8vaUB" />
+  <component name="ProjectId" id="2FnztnBQOZilJujiNP3PgzruQe6" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -22,16 +45,45 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../secucheck-catalog" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.12330456" />
+    <property name="project.structure.side.proportion" value="0.33192685" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Files\Java_project\TaintAnalysis\DemoTests\lib" />
+      <recent name="C:\Files\Java_project\TaintAnalysis\DemoTests\src\main\java\taint\analysis" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Analysis" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="852288f8-0c26-41ee-a1c1-27f78993d749" name="Changes" comment="" />
-      <created>1665126946017</created>
+      <changelist id="ef6b8931-9c77-475b-8b3d-62645d37ad71" name="Changes" comment="" />
+      <created>1665142853519</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1665126946017</updated>
-      <workItem from="1665126949679" duration="235000" />
+      <updated>1665142853519</updated>
+      <workItem from="1665142854950" duration="638000" />
+      <workItem from="1665143507261" duration="5060000" />
+      <workItem from="1665149780189" duration="227000" />
+      <workItem from="1665150099714" duration="17011000" />
+      <workItem from="1665279135257" duration="28387000" />
     </task>
     <servers />
   </component>

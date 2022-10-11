@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Analysis/Analysis.iml" filepath="$PROJECT_DIR$/Analysis/Analysis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DemoTests/DemoTests.iml" filepath="$PROJECT_DIR$/DemoTests/DemoTests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Propagators/Propagators.iml" filepath="$PROJECT_DIR$/Propagators/Propagators.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/TaintAnalysis.iml" filepath="$PROJECT_DIR$/.idea/TaintAnalysis.iml" />
     </modules>
   </component>

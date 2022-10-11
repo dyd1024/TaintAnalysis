@@ -209,7 +209,8 @@ public class Util {
     }
 
     public static List<MethodImpl> set_gen_pro() throws DuplicateTaintFlowQueryIDException {
-        File out = new File(".\\Propagators\\target");
+//        File out = new File("\\Propagators\\target");
+        File out = new File("Propagators\\target");
         HashSet<de.fraunhofer.iem.secucheck.InternalFluentTQL.fluentInterface.MethodPackage.Method> generalPropagators = new HashSet<>();
         JarClassLoaderUtils jarClassLoaderUtils = new JarClassLoaderUtils();
         HashMap<String, FluentTQLUserInterface> specs = jarClassLoaderUtils.loadAppAndGetFluentTQLSpecification(out.getAbsolutePath());

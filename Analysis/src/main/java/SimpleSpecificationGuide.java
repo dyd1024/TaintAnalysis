@@ -1,7 +1,6 @@
 import boomerang.BackwardQuery;
 import boomerang.ForwardQuery;
 import boomerang.Query;
-import boomerang.guided.IDemandDrivenGuidedManager;
 import boomerang.scene.AllocVal;
 import boomerang.scene.ControlFlowGraph;
 import boomerang.scene.Statement;
@@ -15,7 +14,7 @@ import de.fraunhofer.iem.secucheck.analysis.query.OutputParameter;
 
 import java.util.*;
 
-public class SimpleSpecificationGuide implements IDemandDrivenGuidedManager {
+public class SimpleSpecificationGuide implements IDemandDrivenGuidedManager_n {
 
     private Collection<Query> getOutForPropogator(Method propogatorMethod, Statement statement, ControlFlowGraph.Edge dataFlowEdge, Val dataFlowVal) {
         List<Query> queryList = new ArrayList();
@@ -84,18 +83,18 @@ public class SimpleSpecificationGuide implements IDemandDrivenGuidedManager {
     }
 
     @Override
-    public Collection<Query> onForwardFlow (ForwardQuery query, ControlFlowGraph.Edge dataFlowEdge, Val dataFlowVal) {
+    public Collection<Query> onForwardFlow (ForwardQuery query, ControlFlowGraph.Edge dataFlowEdge, Val dataFlowVal, Set<Statement> result) {
         Statement stmt = dataFlowEdge.getStart();
         ArrayList<Query> out = new ArrayList();
 //        System.out.println("stmt: " + stmt);
+//        System.out.println("dataFlowVal: " + dataFlowVal);
+
+        Statement target = dataFlowEdge.getTarget();
+        if (target.toString().contains("return") && getReturnVal(target.toString()).equals(dataFlowVal.getVariableName()) ){
+            result.add(target);
+        }
 
         if (stmt.containsInvokeExpr()) {
-
-//            Collection<Query> prop = this.isPropogator(this.singleFlow.getThrough(), stmt, dataFlowEdge, dataFlowVal);
-//            out.addAll(prop);
-//            if (out.size() > 0) {
-//                return out;
-//            }
 
             Collection<Query> generalProp = null;
             try {
@@ -105,19 +104,26 @@ public class SimpleSpecificationGuide implements IDemandDrivenGuidedManager {
                 e.printStackTrace();
             }
             out.addAll(generalProp);
-        }else {
-            if (stmt.isAssign()){
-                if(stmt.getRightOp().equals( dataFlowVal ) ){
-                    ForwardQuery query_new = new ForwardQuery(dataFlowEdge, new AllocVal(stmt.getLeftOp(), stmt, stmt.getLeftOp()));
-                    out.add(query_new);
-                }
-            }else {
-                if (stmt.isIdentityStmt()){
 
-                }
+            if (!out.isEmpty()){
+                result.add(stmt);
             }
-//            System.out.println("stmt: " + stmt);
 
+            if (out.isEmpty() && getLeftOption_fun(stmt.toString()).equals(dataFlowVal.getVariableName())){
+                result.add(stmt);
+            }
+
+        }
+        else {
+//          例如 $stack3 = n - 1 语句，val的值为 n， 若soot中间码是SSA形式，两个n为同一个n，则以下判断条件成立。
+
+            if (stmt.isAssign() && stmt.getRightOp().getVariableName().contains(dataFlowVal.getVariableName())){
+                result.add(stmt);
+            }
+
+            if (stmt.isIdentityStmt() && getLeftOption_id(stmt.toString()).equals(dataFlowVal.getVariableName()) ){
+                result.add(stmt);
+            }
         }
         return out;
     }
@@ -125,5 +131,19 @@ public class SimpleSpecificationGuide implements IDemandDrivenGuidedManager {
     @Override
     public Collection<Query> onBackwardFlow(BackwardQuery query, ControlFlowGraph.Edge dataFlowEdge, Val dataFlowVal) {
         return Collections.emptyList();
+    }
+
+    public String getLeftOption_id (String identityStmt){
+        String[] splitArray = identityStmt.split(":");
+        return splitArray[0].strip();
+    }
+
+    public String getLeftOption_fun (String fun_sign){
+        String[] splitArray = fun_sign.split("=");
+        return splitArray[0].strip();
+    }
+
+    public String getReturnVal (String return_stmt){
+        return return_stmt.replace("return", "").strip();
     }
 }
