@@ -97,7 +97,7 @@ public class Analysis {
     private List<EntryPoint> getEntryPoints(String classPath) {
 
         List<EntryPoint> entryPoints = new ArrayList<EntryPoint>();
-        List<String> typeNames = Arrays.asList("taint.analysis.taintAnalysis");
+        List<String> typeNames = Arrays.asList("taint.analysis.taintAnalysisDemo3Recursion");
 
 //        List<String> typeNames = Arrays.asList();
 //        try {

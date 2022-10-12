@@ -113,12 +113,16 @@ public class SimpleSpecificationGuide implements IDemandDrivenGuidedManager_n {
                 result.add(stmt);
             }
 
-        }
-        else {
+        } else {
 //          例如 $stack3 = n - 1 语句，val的值为 n， 若soot中间码是SSA形式，两个n为同一个n，则以下判断条件成立。
 
             if (stmt.isAssign() && stmt.getRightOp().getVariableName().contains(dataFlowVal.getVariableName())){
                 result.add(stmt);
+//                if (stmt.getRightOp().getVariableName().contains("+")){
+                if (stmt.getRightOp().getVariableName().matches("^((.)+[\\-/\\+\\*])+(.)+")  ){
+                    ForwardQuery query_new = new ForwardQuery(dataFlowEdge, new AllocVal(stmt.getLeftOp(), stmt, stmt.getLeftOp()));
+                    out.add(query_new);
+                }
             }
 
             if (stmt.isIdentityStmt() && getLeftOption_id(stmt.toString()).equals(dataFlowVal.getVariableName()) ){
